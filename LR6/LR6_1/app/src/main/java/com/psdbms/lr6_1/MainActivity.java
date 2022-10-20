@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         contactList = new ArrayList<>();
         contactList = json.importFromJSONExternalStorage(this);
 
+        //следит за введенным текстом в поле
         searchStr.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence CS, int start, int count, int after)
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    //загрузка, проверка, обновление
+    //показывает данные, совпадающие с текстом в поиске
     public void initList()
     {
         List<contact> contacts = json.importFromJSONInternalStorage(this);
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged(); //обновление списка
     }
 
-    //загрузка данных из json
+    //показ данных без ввода в поиск
     private void loadList()
     {
         contactList = json.importFromJSONInternalStorage(this);
