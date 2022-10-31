@@ -1,0 +1,41 @@
+    public void addTable(String id, String f, String t)
+    {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contval = new ContentValues(); //словарь, что содержит набор пар (кл,зн)
+
+            if (!id.isEmpty()) {
+                contval.put(ID_COL, id); //добавление в словарь объекта
+                contval.put(FLOAT_COL, f);
+                contval.put(TEXT_COL, t);
+
+                db.insert(TABLE_NAME, null, contval);
+                db.close();
+            }
+    }
+
+    //проверка -> работа с данными
+    public void insertTable(View view)
+    {
+        try
+        {
+            //если в какое-то поле (или все сразу) пустое - вывод тоста
+            if(enterID.getText().toString().isEmpty() ||
+               enterFloat.getText().toString().isEmpty() ||
+               enterText.getText().toString().isEmpty())
+            {
+                Toast.makeText(this, "Ќеобходимо заполнить все пол€", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            //добавление введенных значений в таблицу + очистка полей после занесени€ данных
+            db.addTable(enterID.getText().toString(), enterFloat.getText().toString(), enterText.getText().toString());
+            Toast.makeText(this, "«начение добавлено", Toast.LENGTH_SHORT).show();
+            enterID.setText("");
+            enterFloat.setText("");
+            enterText.setText("");
+        }
+        catch(Exception exc)
+        {
+            Toast.makeText(this, exc.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
