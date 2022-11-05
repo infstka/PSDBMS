@@ -34,6 +34,7 @@ public class AddStudent extends AppCompatActivity {
         chooseGroup.setAdapter(adapter);
     }
 
+    //добавление нового студента
     public void addNewStudent(View view)
     {
         try

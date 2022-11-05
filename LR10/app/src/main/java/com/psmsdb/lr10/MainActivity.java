@@ -22,6 +22,7 @@ import java.util.List;
         Group grp;
         List<Group> grps;
 
+    //осн. цель - работа со спиннером (передача ему объектов)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

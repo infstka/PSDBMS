@@ -12,24 +12,26 @@ import java.util.List;
 
 public class DB extends SQLiteOpenHelper
 {
-    private static final String DB_NAME = "University";
+    private static final String DB_NAME = "LR10";
     private static final int DB_VERSION = 1;
     private static final String TABLE_NAME_STUDENTS = "Students";
     private static final String TABLE_NAME_GROUPS = "Groups";
 
     /**Groups table**/
-    private static final String IDGROUP_COL = "IDGroup";
-    private static final String FACULTY_COL = "Faculty";
-    private static final String COURSE_COL = "Course";
-    private static final String NAME_COL = "Name";
-    private static final String HEAD_COL = "Head";
+    private static final String IDGROUP = "IDGroup";
+    private static final String FACULTY = "Faculty";
+    private static final String COURSE = "Course";
+    private static final String NAME = "Name";
+    private static final String HEAD = "Head";
 
     /**Stuednts table**/
-    private static final String IDSTUDENT_COL = "IDstudent";
+    private static final String IDSTUDENT = "IDstudent";
 
     public DB(Context context)
     {
+
         super(context, DB_NAME, null, DB_VERSION);
+
     }
 
     //создание таблиц Group и Students
@@ -37,18 +39,19 @@ public class DB extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         String query_Groups = "CREATE TABLE " + TABLE_NAME_GROUPS + " (" +
-                IDGROUP_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                FACULTY_COL + " TEXT," +
-                COURSE_COL + " INTEGER," +
-                NAME_COL + " TEXT UNIQUE," +
-                HEAD_COL + " TEXT)";
+                IDGROUP + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                FACULTY + " TEXT," +
+                COURSE + " INTEGER," +
+                NAME + " TEXT UNIQUE," +
+                HEAD + " TEXT)";
 
         String query_Students = "CREATE TABLE " + TABLE_NAME_STUDENTS + " (" +
-                IDGROUP_COL + " INTEGER, " +
-                IDSTUDENT_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                NAME_COL + " TEXT," +
+                IDGROUP + " INTEGER, " +
+                IDSTUDENT + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                NAME + " TEXT," +
                 " CONSTRAINT studCnstrnt FOREIGN KEY (IDGroup) REFERENCES Groups(IDGroup) ON DELETE CASCADE)";
     //выше каскадное удаление
+    //references - ссылка 1 на 2
         db.execSQL(query_Groups);
         db.execSQL(query_Students);
     }
@@ -78,9 +81,9 @@ public class DB extends SQLiteOpenHelper
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues cv = new ContentValues();
 
-            cv.put(FACULTY_COL, grp.Faculty);
-            cv.put(COURSE_COL, grp.Course);
-            cv.put(NAME_COL, grp.Name);
+            cv.put(FACULTY, grp.Faculty);
+            cv.put(COURSE, grp.Course);
+            cv.put(NAME, grp.Name);
 
             db.insert(TABLE_NAME_GROUPS, null, cv);
             db.close();
@@ -100,8 +103,8 @@ public class DB extends SQLiteOpenHelper
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues cv = new ContentValues();
 
-            cv.put(IDGROUP_COL, stdnt.IDGroup);
-            cv.put(NAME_COL, stdnt.Name);
+            cv.put(IDGROUP, stdnt.IDGroup);
+            cv.put(NAME, stdnt.Name);
 
             db.insert(TABLE_NAME_STUDENTS, null, cv);
             db.close();
@@ -180,42 +183,7 @@ public class DB extends SQLiteOpenHelper
         return stdntsList;
     }
 
-    //получение старост
-    public List<String> getHeads(String GroupName)
-    {
-        ArrayList<String> headsList = new ArrayList<>();
-        try
-        {
-            SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursorHeads = db.rawQuery("SELECT Head " +
-                    "FROM Students as stdudents " +
-                    "INNER JOIN Groups as groups " +
-                    "ON students.IDGroup = groups.IDGroup " +
-                    "WHERE groups.Name = ?",
-                    new String[]{GroupName});
-
-            if (cursorHeads.moveToFirst())
-            {
-                do
-                {
-                    headsList.add(cursorHeads.getString(0));
-                }
-
-                while (cursorHeads.moveToNext());
-            }
-
-            cursorHeads.close();
-            return headsList;
-        }
-
-        catch (Exception exc)
-        {
-            Log.d("getHeads: ", exc.getMessage());
-        }
-
-        return headsList;
-    }
-
+    //получение айди групп по введенному имени
     public int getIDGroup(String GroupName)
     {
         try
@@ -240,6 +208,7 @@ public class DB extends SQLiteOpenHelper
         return -1;
     }
 
+    //выбор старосты группы
     public void selectGroupHead(int IDGroup, String HeadName)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -248,12 +217,13 @@ public class DB extends SQLiteOpenHelper
         Log.d("IDGroup: ", String.valueOf(IDGroup));
         Log.d("HeadName: ", HeadName);
 
-        cv.put(HEAD_COL, HeadName);
+        cv.put(HEAD, HeadName);
 
         db.update(TABLE_NAME_GROUPS, cv, "IDGroup=?", new String[]{String.valueOf(IDGroup)});
         db.close();
     }
 
+    //удаление группы
     public void deleteGroup(String GroupName)
     {
         try
