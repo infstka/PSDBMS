@@ -68,7 +68,8 @@ public class DB extends SQLiteOpenHelper
     //связь
     @Override
     public void onConfigure(SQLiteDatabase db)
-    {
+    {+
+
         super.onConfigure(db);
         db.execSQL("PRAGMA foreign_keys = ON");
     }

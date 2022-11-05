@@ -1,4 +1,4 @@
-package com.psmsdb.lr9;
+﻿package com.psmsdb.lr9;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class DB extends SQLiteOpenHelper {
-    private static final String DB_NAME = "LR9_DB";
+    private static final String DB_NAME = "LR9";
     private static final int DB_VERSION = 1;
     private static final String TABLE_NAME = "SimpleTable";
 
