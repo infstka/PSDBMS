@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DB extends SQLiteOpenHelper
 {
-    private static final String DB_NAME = "LR10";
+    private static final String DB_NAME = "LR10.db";
     private static final int DB_VERSION = 1;
     private static final String TABLE_NAME_STUDENTS = "Students";
     private static final String TABLE_NAME_GROUPS = "Groups";
@@ -68,7 +68,7 @@ public class DB extends SQLiteOpenHelper
     //связь
     @Override
     public void onConfigure(SQLiteDatabase db)
-    {+
+    {
 
         super.onConfigure(db);
         db.execSQL("PRAGMA foreign_keys = ON");
