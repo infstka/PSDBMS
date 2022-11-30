@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">LR11-14</string>
+    <string-array name="spinner">
+        <item>Средняя оценка (для каждого студента по предмету)</item>
+        <item>Средняя оценка (для каждого студента)</item>
+        <item>Средняя оценка (для группы)</item>
+        <item>Наилучшие студенты</item>
+        <item>Оценки ниже 4</item>
+        <item>Сравнение групп по предметам</item>
+        <item>Сравнение по факультетам</item>
+    </string-array>
+</resources>
