@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LR16</string>
+    <string name="add">Добавить</string>
+    <string name="delete">Удалить</string>
+    <string name="name">Имя контакта</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="work_number">Рабочий номер</string>
+    <string name="update">Обновить</string>
+</resources>
